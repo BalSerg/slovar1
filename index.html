@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover"/>
+    <meta name="description" content="Мы собрали материалы, проверенные экспертами Российской Академии Наук. Это поможет тебе эффективно подготовиться к экзаменам">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="script/index.js"></script>
+</head>
+<body>
+<main>
+    <header class="header js-header">
+        <div class="header-burger is-mobile js-burger">
+            <span></span>
+        </div>
+        <div class="header-logo">
+            <a href=" https://ru.ruwiki.ru/wiki/Заглавная_страница" target="_blank" class="is-desktop js-logo"><img  src="images/logo.svg" alt=""/></a>
+            <a href=" https://ru.ruwiki.ru/wiki/Заглавная_страница" target="_blank" class="is-desktop  js-logo is-dark-theme"><img src="images/logo-dark.svg" alt=""/></a>
+            <a href=" https://ru.ruwiki.ru/wiki/Заглавная_страница" target="_blank" class="is-tablet  js-logo"><img src="images/logo-tablet.svg" alt=""/></a>
+            <a href=" https://ru.ruwiki.ru/wiki/Заглавная_страница" target="_blank" class="is-mobile js-logo"><img src="images/logo-mobile.svg" alt=""/></a>
+            <a href=" https://ru.ruwiki.ru/wiki/Заглавная_страница" target="_blank" class="is-mobile is-dark-theme js-logo"><img src="images/logo-mobile-dark.svg" alt=""/></a>
+        </div>
+        <div class="header-no-logo js-for-search">
+            <div class="header-search js-search">
+                <div class="header-search-wrapper">
+                    <label>
+                        <div><img src="images/icon4.svg" alt=""/><img src="images/icon4-dark.svg" alt=""/></div>
+                        <form><input type="search" value="" name="search" class="js-input" placeholder="Найти ответ на вопрос" autocomplete="off"/></form>
+                        <button type="button" class="header-search-clear js-header-search-clear"></button>
+                    </label>
+                    <div class="header-search-result-content js-header-search-content">
+                        <div class="header-search-result js-header-search-result">
+                            <div class="header-search-result-wrapper js-header-search-wrapper">
+                                <div class="header-search-result__title">Результаты</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-button is-mobile js-call-search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M10.3333 10.3333L15 15M6.44444 11.8889C3.43756 11.8889 1 9.45133 1 6.44444C1 3.43756 3.43756 1 6.44444 1C9.45133 1 11.8889 3.43756 11.8889 6.44444C11.8889 9.45133 9.45133 11.8889 6.44444 11.8889Z" stroke="#1E1E1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </header>
+    <div class="main-wrapper">
+        <aside class="sidebar js-sidebar">
+            <div class="sidebar-head is-mobile">
+                <div class="sidebar-head-empty"></div>
+                <div class="sidebar-head-logo">
+                    <a href=" https://ru.ruwiki.ru/wiki/Заглавная_страница" target="_blank" class="is-mobile js-logo"><img src="images/logo-mobile.svg" alt=""/></a>
+                    <a href=" https://ru.ruwiki.ru/wiki/Заглавная_страница" target="_blank" class="is-mobile is-dark-theme js-logo"><img src="images/logo-mobile-dark.svg" alt=""/></a>
+                </div>
+                <div class="sidebar-close js-burger-close"></div>
+            </div>
+            <div class="sidebar-top">
+                <div class="sidebar-info">
+                    <a href="https://ru.ruwiki.ru/wiki/Заглавная_страница" target="_blank" class="sidebar-info__item">
+                        <img src="images/icon1.svg" alt=""/>
+                        <span class="sidebar-info__item-text">Для вас</span>
+                    </a>
+                    <a href="https://ru.ruwiki.ru/wiki/Заглавная_страница" target="_blank" class="sidebar-info__item">
+                        <div><span class="js-date"></span></div>
+                        <span class="sidebar-info__item-text">Рекомендации</span>
+                    </a>
+                </div>
+                <div class="sidebar-links">
+                    <div class="sidebar-links__item js-modal-call-button">
+                        <img src="images/icon3.svg" alt=""/><span>Проекты РУВИКИ</span>
+                    </div>
+                    <a href="https://ru.ruwiki.ru/wiki/Рувики:Авторам" class="sidebar-links__item">
+                        <img src="images/icon6.svg" alt=""/><span>Стать автором</span>
+                    </a>
+                    <div class="sidebar-links-popup js-modal-popup-link js-modal">
+                        <div class="sidebar-links-popup-wrapper js-modal-wrapper-links">
+                            <div class="sidebar-links-popup-cross js-modal-cross-links"></div>
+                            <div class="sidebar-links__title">Проекты</div>
+                            <div class="sidebar-links__item">
+                                <a href="https://ru.ruwiki.ru/wiki/Проект:Выставка_достижений_народного_хозяйства" target="_blank"><img src="images/icon-link1.svg" alt=""/>ВДНХ</a>
+                            </div>
+                            <div class="sidebar-links__item">
+                                <a href="https://ru.ruwiki.ru/wiki/Проект:Ваши_герои_—_наша_история" target="_blank"><img src="images/icon-link2.svg" alt=""/>Ваши герои — наша история</a>
+                            </div>
+                            <div class="sidebar-links__item">
+                                <a href="https://ru.ruwiki.ru/wiki/Проект:Государственный исторический музей" target="_blank"><img src="images/icon-link3.svg" alt=""/>Государственный исторический музей</a>
+                            </div>
+                            <div class="sidebar-links__item">
+                                <a href="https://ru.ruwiki.ru/wiki/Проект:Департамент_транспорта_Москвы" target="_blank"><img src="images/icon-link4.svg" alt=""/>Департамент транспорта Москвы</a>
+                            </div>
+                            <div class="sidebar-links__item">
+                                <a href="/" target="_blank"><img src="images/icon-link5.svg" alt=""/>Подборка материалов к ОГЭ/ЕГЭ</a>
+                            </div>
+                            <div class="sidebar-links__item">
+                                <a href="https://ru.ruwiki.ru/wiki/Проект:Московский_планетарий" target="_blank"><img src="images/icon-link6.svg" alt=""/>Московский планетарий</a>
+                            </div>
+                            <div class="sidebar-links__item">
+                                <a href="https://ru.ruwiki.ru/wiki/Проект:Музейное_объединение_Музей_Москвы" target="_blank"><img src="images/icon-link7.svg" alt=""/>Музей Москвы</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="sidebar-settings">
+                    <div class="sidebar-settings-button js-modal-call-button">
+                        <img src="images/icon5.svg" alt=""/>
+                        <span>Настроить вид</span>
+                    </div>
+                    <div class="settings js-modal-popup-settings js-modal">
+                        <div class="settings-wrapper js-modal-wrapper-settings">
+                            <div class="settings-cross js-modal-cross-settings"></div>
+                            <div class="settings-title">Режим чтения</div>
+                            <div class="settings-size">
+                                <div class="settings-size-info">
+                                    <div class="settings-size__title">Размер текста</div>
+                                    <div class="settings-size__text js-size-text">По умолчанию</div>
+                                </div>
+                                <div class="settings-size-buttons">
+                                    <label class="settings-size-buttons__item">
+                                        <input type="radio" class="js-buttons-size" name="set-size" data-info="Мелкий" data-class="text-small"/>
+                                        <div>А</div>
+                                    </label>
+                                    <label class="settings-size-buttons__item active">
+                                        <input type="radio" class="js-buttons-size" name="set-size" data-info="По умолчанию" data-class="text-medium"/>
+                                        <div>А</div>
+                                    </label>
+                                    <label class="settings-size-buttons__item">
+                                        <input type="radio" class="js-buttons-size" name="set-size" data-info="Крупный" data-class="text-big"/>
+                                        <div>А</div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="settings-font">
+                                <label class="settings-font__item">
+                                    <input type="radio" class="js-buttons-font" name="set-font" data-class="family-serif"/>
+                                    <div>Аа</div>
+                                    <span>Бумага</span>
+                                </label>
+                                <label class="settings-font__item active">
+                                    <input type="radio" class="js-buttons-font" name="set-font" data-class="family-sans-serif"/>
+                                    <div>Аа</div>
+                                    <span>Фокус</span>
+                                </label>
+                            </div>
+                            <div class="settings-color">
+                                <label class="settings-color__item active">
+                                    <input type="radio" name="set-color" class="js-buttons-color" data-class="white-theme"/>
+                                    <div></div>
+                                </label>
+                                <label class="settings-color__item">
+                                    <input type="radio" name="set-color" class="js-buttons-color" data-class="sepia-theme"/>
+                                    <div></div>
+                                </label>
+                                <label class="settings-color__item">
+                                    <input type="radio" name="set-color" class="js-buttons-color" data-class="dark-theme"/>
+                                    <div></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-icon is-tablet js-modal-call-button-footer">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <g id="Warning / Info">
+                                <path id="Vector" d="M12 11V16M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21ZM12.0498 8V8.1L11.9502 8.1002V8H12.0498Z" stroke="#1E1E1E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <div class="footer js-modal-popup-footer">
+                    <div class="footer-wrapper js-modal-wrapper-footer">
+                        <div class="sidebar-links-popup-cross js-modal-cross-links is-hidden"></div>
+                        <a href="https://company.ruwiki.ru/" target="_blank">О РУВИКИ</a>
+                        <a href="https://meta.ruwiki.ru/wiki/Краткие_правила" target="_blank">Краткие правила</a>
+                        <a href="https://meta.ruwiki.ru/wiki/Редакционные_ценности" target="_blank">Ценности редакции</a>
+                        <a href="https://meta.ruwiki.ru/wiki/Лицензия" target="_blank">Лицензирование</a>
+                        <div class="js-call-more more">Ещё <span></span>
+                            <div class="footer-popup js-popup-more">
+                                <div class="">
+                                    <a href="#" class="popup-more__item">Условия использования</a>
+                                    <a href="#" class="popup-more__item">Политика конфиденциальности</a>
+                                    <a href="#" class="popup-more__item">Обсуждение</a>
+                                    <a href="#" class="popup-more__item">Вклад</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer-info">2 023 805 статей на русском языке</div>
+                        <div class="sidebar-net is-no-desktop">
+                            <div class="sidebar-net-title">«РУВИКИ» в соцсетях</div>
+                            <div class="sidebar-net-links">
+                                <a href="https://t.me/ruwikiofficial" target="_blank"><img src="images/icon-tg.svg" alt=""/></a>
+                                <a href="https://vk.com/ruwikiofficial?ysclid=m2opls8ff3959687074" target="_blank"><img src="images/icon-vk.svg" alt=""/></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-net is-no-tablet">
+                <div class="sidebar-net-title">«РУВИКИ» в соцсетях</div>
+                <div class="sidebar-net-links">
+                    <a href="https://t.me/ruwikiofficial" target="_blank"><img src="images/icon-tg.svg" alt=""/></a>
+                    <a href="https://vk.com/ruwikiofficial?ysclid=m2opls8ff3959687074" target="_blank"><img src="images/icon-vk.svg" alt=""/></a>
+                </div>
+            </div>
+        </aside>
+        <div class="base js-base" data-type="add" data-index-glossary = '0'>
+            <div class="base-wrapper active js-state1">
+                <div class="base-text">
+                    <div class="base-title">Темы</div>
+                </div>
+                <div class="blocks js-blocks"></div>
+            </div>
+            <div class="base-wrapper js-state2">
+                <div class="glossary">
+                    <div class="base-text">
+                        <div class="base-title js-glossary-name"></div>
+                        <div class="base-subtitle js-glossary-subject"></div>
+                    </div>
+                    <div class="switcher js-switcher">
+                        <div class="switcher__item js-add active">Написать</div>
+                        <div class="switcher__item js-edit">Доработать</div>
+                    </div>
+                    <div class="glossary-wrapper js-glossary"></div>
+                </div>
+                <div class="menu-button js-modal-call-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <g id="book-journal">
+                            <path id="Icon" d="M12 10.4V20M12 10.4C12 8.15979 12 7.03969 11.564 6.18404C11.1805 5.43139 10.5686 4.81947 9.81596 4.43597C8.96031 4 7.84021 4 5.6 4H4.6C4.03995 4 3.75992 4 3.54601 4.10899C3.35785 4.20487 3.20487 4.35785 3.10899 4.54601C3 4.75992 3 5.03995 3 5.6V16.4C3 16.9601 3 17.2401 3.10899 17.454C3.20487 17.6422 3.35785 17.7951 3.54601 17.891C3.75992 18 4.03995 18 4.6 18H7.54668C8.08687 18 8.35696 18 8.61814 18.0466C8.84995 18.0879 9.0761 18.1563 9.29191 18.2506C9.53504 18.3567 9.75977 18.5065 10.2092 18.8062L12 20M12 10.4C12 8.15979 12 7.03969 12.436 6.18404C12.8195 5.43139 13.4314 4.81947 14.184 4.43597C15.0397 4 16.1598 4 18.4 4H19.4C19.9601 4 20.2401 4 20.454 4.10899C20.6422 4.20487 20.7951 4.35785 20.891 4.54601C21 4.75992 21 5.03995 21 5.6V16.4C21 16.9601 21 17.2401 20.891 17.454C20.7951 17.6422 20.6422 17.7951 20.454 17.891C20.2401 18 19.9601 18 19.4 18H16.4533C15.9131 18 15.643 18 15.3819 18.0466C15.15 18.0879 14.9239 18.1563 14.7081 18.2506C14.465 18.3567 14.2402 18.5065 13.7908 18.8062L12 20" stroke="#5C4391" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                    </svg>
+                    <span>Выбрать тему</span>
+                </div>
+                <div class="menu js-menu js-modal-popup-menu">
+                    <div class="menu-wrapper js-modal-wrapper-menu">
+                        <div class="sidebar-links-popup-cross js-modal-cross-menu is-mobile"></div>
+                        <div class="menu-title">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <path d="M17.3332 21.3333H27.9998M17.3332 21.3333L21.3332 17.3333M17.3332 21.3333L21.3332 25.3333M17.3332 4H10.9332C9.4397 4 8.69296 4 8.12253 4.29065C7.62076 4.54631 7.21282 4.95426 6.95715 5.45603C6.6665 6.02646 6.6665 6.77319 6.6665 8.26667V23.7333C6.6665 25.2268 6.6665 25.9735 6.95715 26.544C7.21282 27.0457 7.62076 27.4537 8.12253 27.7094C8.69296 28 9.4397 28 10.9332 28H15.9998M17.3332 4L25.3332 12H19.4665C18.7198 12 18.3464 12 18.0612 11.8547C17.8103 11.7268 17.6063 11.5229 17.4785 11.272C17.3332 10.9868 17.3332 10.6134 17.3332 9.86667V4Z" stroke="#1E1E1E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        Темы
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-search is-hidden">
+                <div class="header-search-wrapper">
+                    <label>
+                        <div type="submit"><img src="images/icon4-mobile.svg" alt=""/></div>
+                        <input type="search" value="" name="search2" class="js-input" autocomplete="off" placeholder="Поиск по темам ОГЭ"/>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="header-search-result js-header-search-result is-mobile">
+        <div class="header-search-result-wrapper">
+            <div class="header-search-clear js-header-search-clear www"></div>
+            <div class="header-search-result__title">Результаты</div>
+            <a class="header-search-result__item js-result-item" target="_blank"></a>
+            <a class="header-search-result__item js-result-item" target="_blank"></a>
+            <a class="header-search-result__item js-result-item" target="_blank"></a>
+            <a class="header-search-result__item js-result-item" target="_blank"></a>
+            <a class="header-search-result__item js-result-item" target="_blank"></a>
+            <a class="header-search-result__item js-result-item" target="_blank"></a>
+            <a class="header-search-result__item js-result-item" target="_blank"></a>
+            <a class="header-search-result__item js-result-item" target="_blank"></a>
+            <a class="header-search-result__item js-result-item" target="_blank"></a>
+            <a class="header-search-result__item js-result-item" target="_blank"></a>
+        </div>
+    </div>
+    -->
+    <div class="search-layer js-layer-search"></div>
+</main>
+</body>
+</html>
