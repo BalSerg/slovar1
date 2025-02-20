@@ -1,0 +1,67 @@
+.navbar {
+  padding: $Spacing-1 0;
+  margin: 0 0 $Spacing-3;
+  display: flex;
+  gap: 0 $Spacing-2;
+
+  &__item {
+    @include font14-medium;
+
+    position: relative;
+
+    cursor: pointer;
+
+    >span {
+      text-transform: uppercase;
+    }
+
+    &:after {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+
+      width: 0;
+      height: 1px;
+
+      transform: translateX(-50%);
+      transition: $transition-out;
+      content: "";
+    }
+
+    &:hover:after {
+      width: 100%;
+      transition: $transition-in;
+    }
+
+    &:not(:first-child):not(:empty) {
+      position: relative;
+
+      margin: 0 0 0 18px;
+
+      &:before {
+        position: absolute;
+        top: 7px;
+        left: -18px;
+
+        width: 5px;
+        height: 5px;
+        display: block;
+
+        border-width: 2px 2px 0 0;
+        border-style: solid;
+
+
+        content: "";
+        transform: rotate(45deg);
+      }
+    }
+  }
+}
+
+@include mobile {
+  .navbar {
+    &.no-navbar {
+      display: none;
+    }
+  }
+}

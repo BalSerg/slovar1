@@ -1,0 +1,163 @@
+.top-block {
+  display: flex;
+  align-items: self-start;
+  justify-content: space-between;
+  gap: 0 $Spacing-6;
+
+  padding: $Spacing-4 $Spacing-5 20px 0;
+  margin: 0 0 $Spacing-6;
+
+  background:  linear-gradient(24deg, rgba(255, 255, 255, 0.00) 40.72%, rgba(114, 57, 246, 0.20) 97%);
+  border-radius: $Radius-4;
+
+  &-wrapper {
+    width: calc(100% - 381px);
+  }
+
+  > img {
+    max-width: 381px;
+  }
+
+  &-title {
+    @include font48-bold;
+
+    margin: $Spacing-9 0 $Spacing-4;
+
+    text-transform: uppercase;
+
+    >span {
+      display: block;
+    }
+  }
+
+  &-text {
+    @include font18;
+
+    margin: 0 0 $Spacing-9;
+  }
+
+  &-buttons {
+    display: flex;
+    gap: 0 $Spacing-2;
+    justify-content: space-between;
+    width: 402px;
+
+    border-radius: $Radius-2;
+
+    &__item {
+      @include font16-semibold;
+
+      width: 197px;
+      padding: 10px $Spacing-4;
+      box-sizing: border-box;
+
+      border-radius: $Radius-2;
+      background: transparent;
+
+      transition: $transition-out;
+      cursor: pointer;
+
+      &.active {
+        color: #fff;
+
+        background: #7239F6;
+
+        transition: $transition-in;
+      }
+    }
+  }
+}
+
+.base {
+  &[data-type='ege'] {
+    .top-block {
+      &-title span {
+        color: #00A378;
+      }
+
+      &-buttons__item.active {
+        background: #00A378;
+      }
+    }
+  }
+}
+
+@include small-desktop {
+  .top-block > img {
+    width: 43%;
+  }
+}
+
+@media screen and (max-width: 1570px) {
+  .top-block {
+    &-title {
+      >br {
+        display: none;
+      }
+    }
+  }
+}
+
+@include medium-desktop {
+  .top-block {
+    &-title {
+      @include font40-bold;
+    }
+  }
+}
+
+@include mobile {
+  .top-block {
+    padding: $Spacing-4 $Spacing-3;
+    display: block;
+    margin: 0 0 $Spacing-3;
+
+    &-title {
+      @include font24-bold;
+
+      margin: 0 0 $Spacing-4;
+
+      text-align: center;
+
+      >br {
+        display: inline;
+      }
+    }
+
+    &-wrapper {
+      max-width: none;
+      width: auto;
+    }
+
+    img {
+      width: 220px;
+      margin: 0 auto $Spacing-4;
+    }
+
+    &-text {
+      @include font14;
+
+      margin: 0 0 $Spacing-4;
+
+      text-align: center;
+
+      >div {
+        @include font18-bold;
+
+        >span {
+          color: #6024E0;
+        }
+      }
+    }
+
+    &-buttons {
+      width: 100%;
+      max-width: 335px;
+      margin: 0 auto;
+
+      &__item {
+        width: calc((100% - 8px)/2);
+      }
+    }
+  }
+}

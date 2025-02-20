@@ -1,0 +1,49 @@
+@import "mixins";
+
+$transition-in: all ease-in 300ms;
+$transition-out: all ease-out 300ms;
+
+$black: #1E1E1E;
+$black2: #28292A;
+$gray: #7B7C80;
+$gray2: #E6E6E6;
+$gray3: #4F5156;
+$gray4: #F3F4F4;
+$gray5: #5C5C5C;
+$gray6: #D9D9D9;
+$purple: #9E9BFA;
+$purple2: #3D1593;
+$purple3: #EBECFF;
+$violet: #BE15E0;
+$white: #ffffff;
+$orange: #FF370A;
+
+$width-mobile-small: 375px;
+$width-mobile: 430px;
+$width-tablet: 767px;
+$width-laptop: 1023px;
+$width-desktop: 1240px;
+$width-desktop-wide: 1366px;
+$width-desktop-ultra-wide: 1920px;
+
+$Spacing-0: 0px;
+$Spacing-1: 4px;
+$Spacing-2: 8px;
+$Spacing-3: 16px;
+$Spacing-4: 24px;
+$Spacing-5: 32px;
+$Spacing-6: 40px;
+$Spacing-7: 48px;
+$Spacing-9: 56px;
+$Spacing-8: 64px;
+
+$Radius-1: 4px;
+$Radius-2: 8px;
+$Radius-3: 16px;
+$Radius-4: 24px;
+$Radius-5: 32px;
+
+$Colors-objects-Button-Button: #6024e0;
+$Color-Black-Black-0: #fff;
+$Color-green: #1CBA82;
+$Color-line-separator: #E6E6E6;

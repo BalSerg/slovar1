@@ -1,0 +1,92 @@
+.guide {
+  position: sticky;
+  top: 96px;
+
+  padding: $Spacing-4;
+  box-sizing: border-box;
+  width: 30%;
+  flex-shrink: 0;
+
+  &-img {
+    display: inline-flex;
+    vertical-align: middle;
+    margin: 0 $Spacing-3 $Spacing-4 0;
+
+    >img {
+      margin: auto;
+    }
+  }
+
+  &-title {
+    @include font24-semibold;
+
+    margin: 0 0 $Spacing-4;
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 100px - 16px - 4px);
+  }
+
+  &-steps {
+    display: flex;
+    flex-direction: column;
+    gap: $Spacing-2 0;
+
+    &__item {
+      @include font14;
+
+      padding: $Spacing-3;
+      display: flex;
+      align-items: self-start;
+      gap: 0 $Spacing-3;
+
+      border-radius: $Radius-2;
+
+      >span {
+        @include font14-semibold;
+
+        width: 26px;
+        height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        background: #9E9BFA;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+@include small-desktop {
+  .guide {
+    width: auto;
+  }
+}
+
+@include mobile {
+  .guide {
+    width: auto;
+    padding: $Spacing-4 $Spacing-3;
+    margin: 0 0 $Spacing-2;
+
+    &-img {
+      display: flex;
+      margin: 0 auto $Spacing-3;
+    }
+
+    &-title {
+      display: block;
+      margin: 0 0 $Spacing-4;
+      width: 100%;
+
+      text-align: center;
+    }
+
+    &-steps {
+      &__item {
+        @include font16;
+      }
+    }
+  }
+}

@@ -1,0 +1,140 @@
+.themes {
+  width: 57%;
+  display: inline-flex;
+  vertical-align: top;
+  margin: 0 24px 0 0;
+  flex-wrap: wrap;
+  gap: $Spacing-4;
+
+  &__item {
+    padding: $Spacing-3;
+    width: calc((100% - 24px)/2);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    gap: 0 $Spacing-3;
+
+    border-radius: $Radius-4;
+    background: var(--bg-primary-color);
+    border: 1px solid var(--text-gray-secondary);
+
+    transition: $transition-out;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px solid #C759E5;
+      transition: $transition-in;
+    }
+
+    &-count {
+      @include font20-semibold;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 28px;
+
+      color: var(--text-color-primary);
+
+      border-radius: $Radius-2;
+      background: var(--bg-secondary-color);
+
+      margin: 0 0 $Spacing-2;
+    }
+
+    &-title {
+      @include font20-semibold;
+
+      margin: 0 0 $Spacing-2;
+
+      color: var(--text-color-primary);
+    }
+
+    &-text {
+      @include font14;
+
+      color: var(--text-gray);
+    }
+
+    &-icon {
+      display: flex;
+      align-items: self-start;
+
+      >span {
+        $size: 32px;
+        width: $size;
+        height: $size;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        border-radius: $Radius-2;
+        background: var(--bg-primary-color);
+
+        &:before {
+          width: 6px;
+          height: 6px;
+          display: block;
+
+          border-width: 2px 2px 0 0;
+          border-style: solid;
+          border-color: var(--text-color-primary);
+
+          transform: rotate(45deg);
+          content: "";
+        }
+      }
+    }
+  }
+
+  &-history-order {
+    .themes__item {
+      order: 30;
+
+      &:nth-child(1) {
+        order: 1;
+      }
+
+      &:nth-child(2) {
+        order: 2;
+      }
+
+      &:nth-child(3) {
+        order: 4;
+      }
+
+      &:nth-child(4) {
+        order: 5;
+      }
+
+      &:nth-child(5) {
+        order: 3;
+      }
+    }
+  }
+}
+
+@include tablet {
+  .themes {
+    margin: 0 0 $Spacing-7;
+    width: auto;
+  }
+}
+
+@include mobile {
+  .themes {
+    display: block;
+
+    &__item {
+      margin: 0 0 $Spacing-2;
+      width: auto;
+      justify-content: space-between;
+
+      &:last-of-type {
+        margin: 0;
+      }
+    }
+  }
+}

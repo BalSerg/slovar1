@@ -1,0 +1,49 @@
+.switcher {
+  margin: $Spacing-5 0 $Spacing-5 $Spacing-5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0 $Spacing-1;
+  padding: $Spacing-1;
+
+  border-radius: $Radius-3;
+  background: var(--bg-secondary-color);
+
+  &__item {
+    @include font14-bold;
+
+    padding: $Spacing-2 $Spacing-3;
+
+    color: var(--text-color-primary);
+
+    background: transparent;
+    border-radius: $Radius-3;
+
+    transition: $transition-out;
+    cursor: pointer;
+
+    &.active {
+      color: var(--text-white);
+
+      background: var(--text-color-primary);
+
+      transition: $transition-out;
+    }
+  }
+}
+
+@include mobile {
+  .switcher {
+    order: 1;
+    justify-content: center;
+    padding: $Spacing-2;
+    margin: 0 0 $Spacing-3;
+
+    background: transparent;
+
+    &__item {
+      &:not(.active) {
+        background: var(--bg-secondary-color);
+      }
+    }
+  }
+}

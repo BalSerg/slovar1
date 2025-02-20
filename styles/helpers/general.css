@@ -1,0 +1,122 @@
+@font-face {
+  font-family: "onestRegular";
+  src: url("./../fonts/Onest-Regular.ttf") format("opentype"); }
+@font-face {
+  font-family: "onestMedium";
+  src: url("./../fonts/Onest-Medium.ttf") format("opentype"); }
+@font-face {
+  font-family: "onestSemibold";
+  src: url("./../fonts/Onest-SemiBold.ttf") format("opentype"); }
+@font-face {
+  font-family: "onestBold";
+  src: url("./../fonts/Onest-Bold.ttf") format("opentype"); }
+@font-face {
+  font-family: "loraRegular";
+  src: url("./../fonts/Lora-Regular.ttf") format("opentype"); }
+@font-face {
+  font-family: "loraMedium";
+  src: url("./../fonts/Lora-Medium.ttf") format("opentype"); }
+@font-face {
+  font-family: "loraSemiBold";
+  src: url("./../fonts/Lora-SemiBold.ttf") format("opentype"); }
+@font-face {
+  font-family: "loraBold";
+  src: url("./../fonts/Lora-Bold.ttf") format("opentype"); }
+html {
+  --fontRegular: onestRegular, sans-serif;
+  --fontMedium: onestMedium, sans-serif;
+  --fontSemibold: onestSemibold, sans-serif;
+  --fontBold: onestBold, sans-serif; }
+
+html.family-serif {
+  --fontRegular: loraRegular, serif;
+  --fontMedium: loraMedium, serif;
+  --fontSemibold: loraSemibold, serif;
+  --fontBold: loraBold, serif; }
+
+@font-face {
+  font-family: "onestRegular";
+  src: url("./../fonts/Onest-Regular.ttf") format("opentype"); }
+@font-face {
+  font-family: "onestMedium";
+  src: url("./../fonts/Onest-Medium.ttf") format("opentype"); }
+@font-face {
+  font-family: "onestSemibold";
+  src: url("./../fonts/Onest-SemiBold.ttf") format("opentype"); }
+@font-face {
+  font-family: "onestBold";
+  src: url("./../fonts/Onest-Bold.ttf") format("opentype"); }
+@font-face {
+  font-family: "loraRegular";
+  src: url("./../fonts/Lora-Regular.ttf") format("opentype"); }
+@font-face {
+  font-family: "loraMedium";
+  src: url("./../fonts/Lora-Medium.ttf") format("opentype"); }
+@font-face {
+  font-family: "loraSemiBold";
+  src: url("./../fonts/Lora-SemiBold.ttf") format("opentype"); }
+@font-face {
+  font-family: "loraBold";
+  src: url("./../fonts/Lora-Bold.ttf") format("opentype"); }
+html {
+  --fontRegular: onestRegular, sans-serif;
+  --fontMedium: onestMedium, sans-serif;
+  --fontSemibold: onestSemibold, sans-serif;
+  --fontBold: onestBold, sans-serif; }
+
+html.family-serif {
+  --fontRegular: loraRegular, serif;
+  --fontMedium: loraMedium, serif;
+  --fontSemibold: loraSemibold, serif;
+  --fontBold: loraBold, serif; }
+
+.is-hidden {
+  display: none !important; }
+
+.is-desktop {
+  display: block; }
+
+.is-no-desktop {
+  display: none; }
+
+.is-no-mobile,
+.is-no-tablet {
+  display: block; }
+
+.is-mobile,
+.is-tablet {
+  display: none; }
+
+@media screen and (max-width: 1023px) {
+  .is-desktop {
+    display: none; }
+
+  .is-no-desktop {
+    display: block; }
+
+  .is-tablet {
+    display: flex; }
+
+  .is-no-tablet {
+    display: none; } }
+@media screen and (max-width: 767px) {
+  .is-desktop {
+    display: none; }
+
+  .is-no-desktop {
+    display: block; }
+
+  .is-hidden.is-no-tablet {
+    display: none; }
+
+  .is-mobile {
+    display: block; }
+
+  .is-no-mobile,
+  .is-tablet {
+    display: none !important; }
+
+  .is-no-tablet {
+    display: block; } }
+
+/*# sourceMappingURL=general.css.map */

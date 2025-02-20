@@ -1,0 +1,68 @@
+@import "../services/_all";
+
+.is-hidden {
+  display: none !important;
+}
+
+.is-desktop {
+  display: block;
+}
+
+.is-no-desktop {
+  display: none;
+}
+
+.is-no-mobile,
+.is-no-tablet {
+  display: block;
+}
+
+.is-mobile,
+.is-tablet {
+  display: none;
+}
+
+@include tablet {
+  .is-desktop {
+    display: none;
+  }
+
+  .is-no-desktop {
+    display: block;
+  }
+
+  .is-tablet {
+    display: flex;
+  }
+
+  .is-no-tablet {
+    display: none;
+  }
+}
+
+@include mobile {
+  .is-desktop {
+    display: none;
+  }
+
+  .is-no-desktop {
+    display: block;
+  }
+
+  .is-hidden.is-no-tablet {
+    display: none ;
+  }
+
+  .is-mobile {
+    display: block;
+  }
+
+  .is-no-mobile,
+  .is-tablet {
+    display: none !important;
+  }
+
+  .is-no-tablet {
+    display: block;
+  }
+}

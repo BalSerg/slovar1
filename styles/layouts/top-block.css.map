@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,UAAW;EACT,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,UAAU;EACvB,eAAe,EAAE,aAAa;EAC9B,GAAG,EAAE,GAEP",
+"sources": ["top-block.scss"],
+"names": [],
+"file": "top-block.css"
+}
