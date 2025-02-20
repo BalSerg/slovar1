@@ -1,5 +1,3 @@
-//data.item.glossary.jtem.action.ktem.content
-
 let data = [
     {
         theme: 'Кино',
@@ -2038,7 +2036,7 @@ window.addEventListener('load', () => {
         elBase = getElement('.js-base'),
         currentIndexGlossary = Number(elBase.dataset.indexGlossary),
         type,
-        arrLists,
+        arrLists = [],
         elBurger = getElement('.js-burger'),
         elSidebar = getElement('.js-sidebar'),
         elButtonMore = getElement('.js-call-more'),
@@ -2052,7 +2050,8 @@ window.addEventListener('load', () => {
         elResultSearchContent = getElement('.js-header-search-content'),
         elClearSearch = getElement('.js-header-search-clear'),
         elLayerSearch = getElement('.js-layer-search'),
-        elInput = getElement('.js-input');
+        elInput = getElement('.js-input'),
+        elButtonToState1 = getElement('.js-gotoState1');
 
     //Вывод текущей даты
     let dataDate = new Date();
@@ -2212,8 +2211,14 @@ window.addEventListener('load', () => {
 
     // Функция создания правого меню
     function createMenu() {
+        let elMenuItem;
+        if(getArray('.js-menu-item').length) {
+            getArray('.js-menu-item').forEach((item) => {
+                item.remove();
+            })
+        }
         data.forEach((item, index) => {
-            let elMenuItem = document.createElement('DIV');
+            elMenuItem = document.createElement('DIV');
             elMenuItem.classList.add('menu__item');
             elMenuItem.classList.add('js-menu-item');
             elMenuItem.innerHTML = `<div class="menu__item-title">${item.theme}</div>
@@ -2240,7 +2245,9 @@ window.addEventListener('load', () => {
                             currentIndexGlossary = index;
                         }
                     });
-                    closeModal(arrayModals[arrayModals.length - 1], arrModalsWrapper[arrModalsWrapper.length - 1]);// здесь другой index
+                    if(window.innerWidth < 1024) {
+                        closeModal(arrayModals[arrayModals.length - 1], arrModalsWrapper[arrModalsWrapper.length - 1]);
+                    }
                     this.classList.add("active");
                     elName.textContent = data[currentIndex].glossary[currentIndexGlossary].title;
                     elSubName.textContent = data[currentIndex].glossary[currentIndexGlossary].text;
@@ -2272,7 +2279,7 @@ window.addEventListener('load', () => {
         })
     }
 
-    // Функция создания стартового вида
+    // Функция создания стартового вида второго экрана
     function createStartView() {
         // Получаем индекс блока куда нажали
         arrayBlocks = getArray('.js-subject');
@@ -2295,8 +2302,15 @@ window.addEventListener('load', () => {
         //getElement('.glossary').style.width = `${elState2.offsetWidth - elMenu.offsetWidth - 32 - 15}px`;
         createMenu();
         //Выделение первого элемента из блока
+        getArray('.js-list span').forEach((item) => {
+            item.classList.remove('active');
+        })
         let currentBlockMenu = getArray('.js-list')[currentIndex];
         currentBlockMenu.querySelectorAll('span')[0].classList.add('active');
+        //----
+        //Включена только первая кнопка в переключателе
+        elAdd.classList.add('active');
+        elEdit.classList.remove('active');
     }
 
     // Показать поиск в мобиле
@@ -2391,5 +2405,12 @@ window.addEventListener('load', () => {
             }
         }*/
     }
+
+    //Переход в блок с темами
+    elButtonToState1.addEventListener('click', () => {
+        elState1.classList.add('active');
+        elState2.classList.remove('active');
+        closeModal(arrayModals[arrayModals.length - 1], arrModalsWrapper[arrModalsWrapper.length - 1]);
+    })
 })
 
