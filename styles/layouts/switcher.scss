@@ -5,7 +5,7 @@
   gap: 0 $Spacing-1;
   padding: $Spacing-1;
 
-  border-radius: $Radius-3;
+  border-radius: $Radius-2;
   background: var(--bg-secondary-color);
 
   &__item {
@@ -16,7 +16,7 @@
     color: var(--text-color-primary);
 
     background: transparent;
-    border-radius: $Radius-3;
+    border-radius: $Radius-2;
 
     transition: $transition-out;
     cursor: pointer;

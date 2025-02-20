@@ -69,7 +69,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 0 $Spacing-2;
-      padding: $Spacing-2 $Spacing-3 $Spacing-2 $Spacing-2;
+      padding: $Spacing-2 $Spacing-3;
 
       form {
         width: 100%;
@@ -218,19 +218,6 @@
       }
     }
   }
-
-  &-login {
-    @include font14-medium;
-
-    padding: $Spacing-2 12px;
-
-    color: var(--text-color-primary);
-
-    background: var(--bg-secondary-color);
-    border-radius: $Radius-2;
-
-    cursor: pointer;
-  }
 }
 
 /*@include small-desktop {
@@ -324,14 +311,6 @@
 
     &-no-logo {
       width: 100%;
-    }
-
-    &-login {
-      @include font16-bold;
-
-      padding: $Spacing-1 $Spacing-2;
-
-      background: transparent;
     }
 
     &-search {
@@ -450,7 +429,7 @@
         padding: $Spacing-3 ;
 
         >label {
-          padding: $Spacing-2;
+          padding: $Spacing-2 $Spacing-3;
 
           border-radius: $Radius-3;
           border: 1px solid #8B89BB;
