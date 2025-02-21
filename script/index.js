@@ -1,4 +1,38 @@
-let data = [
+let infoFromJson = [];
+let data = [];
+
+//Получение Тем и всего что в них есть
+fetch('https://portals.ruwiki.ru/slovnik/data.json')
+    .then((res) => {
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        } else {
+            let error = new Error(res.statusText);
+            error.response = res;
+            throw error;
+        }
+    })
+    .then((res) => {
+        const contentType = res.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            let error = new Error('Некорректный ответ от сервера: ожидается application/json');
+            error.response = res;
+            throw error;
+        }
+        return res.json();
+    })
+    .then(data => {
+        infoFromJson = displayData(data);
+
+    })
+//---------
+
+//функция куда передаем data
+function displayData(s) {
+    return s;
+}
+
+let mokData = [
     {
         theme: 'Кино',
         subThemes: ['Фильмы', 'Актеры', 'Режиссёры', 'Сценаристы'],
@@ -1936,6 +1970,14 @@ let data = [
         ]
     }
 ]
+
+if(infoFromJson.length) {
+    data = infoFromJson;
+}
+else {
+    data = mokData;
+}
+
 
 //Сбор в два разных массива всех статей и всех урл к ним
 let arrayTitle = [],
