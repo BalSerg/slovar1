@@ -2008,12 +2008,12 @@ function getArray(selector) {
 
 // Убираем scroll у body
 function noScrollBody () {
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflowY = 'hidden';
 }
 
 // Возвращает scroll у body
 function yesScrollBody () {
-    document.body.style.overflow = 'auto';
+    document.body.style.overflowY = 'scroll';
 }
 
 // Функция открытия модалки по кнопке вызова модалки

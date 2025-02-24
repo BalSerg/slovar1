@@ -38,6 +38,12 @@ html {
   }
 
   .header {
+    &-logo {
+      .is-dark-theme {
+        display: none;
+      }
+    }
+
     &-search {
       img:last-of-type {
         display: none;
@@ -47,6 +53,12 @@ html {
 
   @include tablet {
     .header {
+      &-logo {
+        .is-mobile.is-no-desktop {
+          display: none;
+        }
+      }
+
       &-burger {
         background: var(--bg-secondary-color);
 
@@ -79,6 +91,12 @@ html {
   }
 
   @include mobile {
+    .header-logo {
+      .is-mobile.is-no-desktop {
+        display: block;
+      }
+    }
+
     .header-logo,
     .sidebar-head-logo {
       .is-mobile.is-dark-theme {
@@ -102,6 +120,18 @@ html {
     --bg-primary-color-invert: #fff;
     --text-color-primary-invert: #1e1e1e;
 
+    .header {
+      &-logo {
+        .is-desktop:not(.is-dark-theme) {
+          display: none;
+        }
+
+        .is-dark-theme:not(.is-no-desktop) {
+          display: block;
+        }
+      }
+    }
+
     .sidebar {
       &-info__item,
       &-settings-button,
@@ -122,6 +152,16 @@ html {
     .footer-icon {
       path {
         stroke: var(--text-color-primary);
+      }
+    }
+
+    @include tablet {
+      .header {
+        &-logo {
+          .is-dark-theme.is-desktop {
+            display: none;
+          }
+        }
       }
     }
 
@@ -172,6 +212,7 @@ html {
 
   body {
     height: 100%;
+    overflow-y: scroll;
   }
 
   &.text-big {
