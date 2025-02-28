@@ -1,37 +1,3 @@
-let infoFromJson = [];
-let data = [];
-
-//Получение Тем и всего что в них есть
-fetch('https://portals.ruwiki.ru/slovnik/data.json')
-    .then((res) => {
-        if (res.status >= 200 && res.status < 300) {
-            return res;
-        } else {
-            let error = new Error(res.statusText);
-            error.response = res;
-            throw error;
-        }
-    })
-    .then((res) => {
-        const contentType = res.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-            let error = new Error('Некорректный ответ от сервера: ожидается application/json');
-            error.response = res;
-            throw error;
-        }
-        return res.json();
-    })
-    .then(data => {
-        infoFromJson = displayData(data);
-
-    })
-//---------
-
-//функция куда передаем data
-function displayData(s) {
-    return s;
-}
-
 let mokData = [
     {
         theme: 'Кино',
@@ -1970,31 +1936,8 @@ let mokData = [
         ]
     }
 ]
-
-if(infoFromJson.length) {
-    data = infoFromJson;
-}
-else {
-    data = mokData;
-}
-
-
-//Сбор в два разных массива всех статей и всех урл к ним
-let arrayTitle = [],
-    arrayUrl = [];
-data.forEach((item) => {
-    item.glossary.forEach((jtem) => {
-        for(let i in jtem.action) {
-            jtem.action[i].forEach((ktem) => {
-                ktem.content.forEach((otem) => {
-                    arrayTitle.push(otem.title);
-                    arrayUrl.push(otem.url)
-                });
-            });
-        }
-    })
-})
-//--------
+let infoFromJson = [];
+let infoData = [];
 
 //Получаем элемент по селектору
 function getElement(selector) {
@@ -2051,408 +1994,444 @@ function closeModal(modal, modalWrapper) {
     }
 }
 
-window.addEventListener('load', () => {
-    let
-        elHtml = document.documentElement,
-        elDate = getElement('.js-date'),
-        arrayModals = getArray('[class *= "js-modal-popup"]'),
-        arrayModalsCross = getArray('[class *= "js-modal-cross"]'),
-        arrayButtonsCallModal = getArray('[class *= "js-modal-call"]'),
-        arrButtonsSize = getArray('.js-buttons-size'),
-        arrModalsWrapper = getArray('[class *= "js-modal-wrapper"]'),
-        elSizeText = getElement('.js-size-text'),
-        arrButtonsColor = getArray('.js-buttons-color'),
-        arrButtonsFont = getArray('.js-buttons-font'),
-        elBlocks = getElement('.js-blocks'),
-        arrayBlocks = [],
-        currentIndex = 0,
-        elState1 = getElement('.js-state1'),
-        elState2 = getElement('.js-state2'),
-        elGlossary = getElement('.js-glossary'),
-        elName = getElement('.js-glossary-name'),
-        elSubName = getElement('.js-glossary-subject'),
-        elSwitcher = getElement('.js-switcher'),
-        elAdd = getElement('.js-add'),
-        elEdit = getElement('.js-edit'),
-        elMenu = getElement('.js-menu'),
-        elBase = getElement('.js-base'),
-        currentIndexGlossary = Number(elBase.dataset.indexGlossary),
-        type,
-        arrLists = [],
-        elBurger = getElement('.js-burger'),
-        elSidebar = getElement('.js-sidebar'),
-        elButtonMore = getElement('.js-call-more'),
-        elPopupMore = getElement('.js-popup-more'),
-        elBurgerClose = getElement('.js-burger-close'),
-        elButtonCallSearch = getElement('.js-call-search'),
-        elForSearch = getElement('.js-for-search'),
-        elSearch = getElement('.js-search'),
-        elResultSearch = getElement('.js-header-search-result'),
-        elResultSearchWrapper = getElement('.js-header-search-wrapper'),
-        elResultSearchContent = getElement('.js-header-search-content'),
-        elClearSearch = getElement('.js-header-search-clear'),
-        elLayerSearch = getElement('.js-layer-search'),
-        elInput = getElement('.js-input'),
-        elButtonToState1 = getElement('.js-gotoState1');
-
-    //Вывод текущей даты
-    let dataDate = new Date();
-    elDate.textContent = dataDate.getDate();
-
-    //Открытие модалок
-    arrayButtonsCallModal.forEach((item, index) => {
-        item.addEventListener('click', () => {
-            if(String(item.classList).indexOf('more')) {
-                item.classList.toggle('active');
-            }
-            openModal(arrayModals[index], arrModalsWrapper[index])
-        })
-    })
-
-    //Закрытие модалок по крестику
-    arrayModalsCross.forEach((item, index) => {
-        item.addEventListener('click', () => {
-            closeModal(arrayModals[index], arrModalsWrapper[index]);
-        })
-    })
-
-    //Закрытие модалок если нажали мимо модалки
-    arrayModals.forEach((item, index) => {
-        item.addEventListener('click', (e) => {
-            if(window.innerWidth > 1023) {
-                if (!e.target.classList.contains('js-modal')) {
-                    closeModal(arrayModals[index], arrModalsWrapper[index]);
-                }
-            }
-            else {
-                if (e.target.classList.contains('active') && (!e.target.classList.contains('more'))) {
-                    closeModal(arrayModals[index], arrModalsWrapper[index]);
-                }
-            }
-        })
-    })
-
-    /*Изменение размера текста*/
-    let arrLabelSize = [];
-    arrButtonsSize.forEach((item) => {
-        arrLabelSize.push(item.parentElement);
-    })
-    arrButtonsSize.forEach((item) => {
-        item.addEventListener('click', (e) => {
-            elHtml.classList.remove('text-small', 'text-medium', 'text-big');
-            for (let i of arrLabelSize) {
-                i.classList.remove('active');
-            }
-            item.parentElement.classList.add('active');
-            elSizeText.textContent = item.dataset.info;
-            elHtml.classList.add(item.dataset.class);
-            closeModal(e.target.parentNode.parentNode.parentNode.parentNode.parentNode, e.target.parentNode.parentNode.parentNode.parentNode);
-        })
-    })
-
-    /*Нажатие на выбор цвета*/
-    let arrLabelColor = [];
-    arrButtonsColor.forEach((item) => {
-        arrLabelColor.push(item.parentElement);
-    })
-    arrButtonsColor.forEach((item) => {
-        item.addEventListener('click', (e) => {
-            elHtml.classList.remove('dark-theme', 'sepia-theme', 'white-theme');
-            for (let i of arrLabelColor) {
-                i.classList.remove('active');
-            }
-            item.parentElement.classList.add('active');
-            elHtml.classList.add(item.dataset.class);
-            closeModal(e.target.parentNode.parentNode.parentNode.parentNode, e.target.parentNode.parentNode.parentNode);
-        })
-    })
-
-    /*Нажатие на выбор типа шрифта*/
-    let arrLabelFont = [];
-    arrButtonsFont.forEach((item) => {
-        arrLabelFont.push(item.parentElement);
-    })
-    arrButtonsFont.forEach((item) => {
-        item.addEventListener('click', (e) => {
-            elHtml.classList.remove('family-sans-serif', 'family-serif');
-            for (let i of arrLabelFont) {
-                i.classList.remove('active');
-            }
-            item.parentElement.classList.add('active');
-            elHtml.classList.add(item.dataset.class);
-            closeModal(e.target.parentNode.parentNode.parentNode.parentNode, e.target.parentNode.parentNode.parentNode);
-        })
-    })
-
-    /*Нажатие на кнопку бургера*/
-    elBurger.addEventListener('click', () => {
-        if (!elBurger.classList.contains('active')) {
-            //elBurger.classList.add('active');
-            elSidebar.classList.add('active');
-        }
-        else {
-            elBurger.classList.remove('active');
-            elSidebar.classList.remove('active');
+//Получение Тем и всего что в них есть
+fetch('https://portals.ruwiki.ru/slovnik/data.json')
+    .then((res) => {
+        if (res.status >= 200 && res.status < 300) {
+            return res;
+        } else {
+            let error = new Error(res.statusText);
+            error.response = res;
+            throw error;
         }
     })
-
-    //Закрытие бургера в мобилке
-    elBurgerClose.addEventListener('click', () => {
-        elSidebar.classList.remove('active');
+    .then((res) => {
+        const contentType = res.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            let error = new Error('Некорректный ответ от сервера: ожидается application/json');
+            error.response = res;
+            throw error;
+        }
+        return res.json();
     })
+    .then(data => {
+        displayData(data);
 
-    //Нажатие на кнопку ЕЩЕ
-    elButtonMore.addEventListener('click', () => {
-        elButtonMore.classList.toggle('active');
-        elPopupMore.classList.toggle('active');
-    })
+        //функция куда передаем data
+        function displayData(s) {
+            infoFromJson = s;
 
-    //Переключение кнопок в переключателе
-    for(let item of elSwitcher.querySelectorAll('div')) {
-        item.addEventListener('click', function () {
-            item.classList.add('active');
-            elGlossary.textContent = '';
-            if(this.classList.contains('js-add')) {
-                elBase.dataset.type = 'add';
-                elEdit.classList.remove('active');
+            let
+                elHtml = document.documentElement,
+                elDate = getElement('.js-date'),
+                arrayModals = getArray('[class *= "js-modal-popup"]'),
+                arrayModalsCross = getArray('[class *= "js-modal-cross"]'),
+                arrayButtonsCallModal = getArray('[class *= "js-modal-call"]'),
+                arrButtonsSize = getArray('.js-buttons-size'),
+                arrModalsWrapper = getArray('[class *= "js-modal-wrapper"]'),
+                elSizeText = getElement('.js-size-text'),
+                arrButtonsColor = getArray('.js-buttons-color'),
+                arrButtonsFont = getArray('.js-buttons-font'),
+                elBlocks = getElement('.js-blocks'),
+                arrayBlocks = [],
+                currentIndex = 0,
+                elState1 = getElement('.js-state1'),
+                elState2 = getElement('.js-state2'),
+                elGlossary = getElement('.js-glossary'),
+                elName = getElement('.js-glossary-name'),
+                elSubName = getElement('.js-glossary-subject'),
+                elSwitcher = getElement('.js-switcher'),
+                elAdd = getElement('.js-add'),
+                elEdit = getElement('.js-edit'),
+                elMenu = getElement('.js-menu'),
+                elBase = getElement('.js-base'),
+                currentIndexGlossary = Number(elBase.dataset.indexGlossary),
+                type,
+                arrLists = [],
+                elBurger = getElement('.js-burger'),
+                elSidebar = getElement('.js-sidebar'),
+                elButtonMore = getElement('.js-call-more'),
+                elPopupMore = getElement('.js-popup-more'),
+                elBurgerClose = getElement('.js-burger-close'),
+                elButtonCallSearch = getElement('.js-call-search'),
+                elForSearch = getElement('.js-for-search'),
+                elSearch = getElement('.js-search'),
+                elResultSearch = getElement('.js-header-search-result'),
+                elResultSearchWrapper = getElement('.js-header-search-wrapper'),
+                elResultSearchContent = getElement('.js-header-search-content'),
+                elClearSearch = getElement('.js-header-search-clear'),
+                elLayerSearch = getElement('.js-layer-search'),
+                elInput = getElement('.js-input'),
+                elButtonToState1 = getElement('.js-gotoState1');
 
+            if (infoFromJson.length) {
+                infoData = infoFromJson;
+
+            } else {
+                infoData = mokData;
             }
-            if(this.classList.contains('js-edit')) {
-                elBase.dataset.type = 'edit';
-                elAdd.classList.remove('active');
-            }
-            type = elBase.dataset.type;
-            createGlossary(currentIndex, currentIndexGlossary, type);
-        });
-    }
 
-    // Создание блоков на главной
-    function createSubjects() {
-        elBlocks.textContent = '';
-        data.forEach((item, index) => {
-            let itemBlock;
-            itemBlock = document.createElement('div');
-            itemBlock.classList.add('blocks__item');
-            itemBlock.classList.add('js-subject');
-            itemBlock.addEventListener('click', createStartView);
-            itemBlock.innerHTML = `<div class="blocks__item-img">
+            //Сбор в два разных массива всех статей и всех урл к ним
+            let arrayTitle = [],
+                arrayUrl = [];
+            infoData.forEach((item) => {
+                item.glossary.forEach((jtem) => {
+                    for (let i in jtem.action) {
+                        jtem.action[i].forEach((ktem) => {
+                            ktem.content.forEach((otem) => {
+                                arrayTitle.push(otem.title);
+                                arrayUrl.push(otem.url)
+                            });
+                        });
+                    }
+                })
+            })
+            //--------
+
+            //Закрытие модалок по крестику
+            arrayModalsCross.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    closeModal(arrayModals[index], arrModalsWrapper[index]);
+                })
+            })
+
+            //Закрытие модалок если нажали мимо модалки
+            arrayModals.forEach((item, index) => {
+                item.addEventListener('click', (e) => {
+                    if(window.innerWidth > 1023) {
+                        if (!e.target.classList.contains('js-modal')) {
+                            closeModal(arrayModals[index], arrModalsWrapper[index]);
+                        }
+                    }
+                    else {
+                        if (e.target.classList.contains('active') && (!e.target.classList.contains('more'))) {
+                            closeModal(arrayModals[index], arrModalsWrapper[index]);
+                        }
+                    }
+                })
+            })
+
+            /*Изменение размера текста*/
+            let arrLabelSize = [];
+            arrButtonsSize.forEach((item) => {
+                arrLabelSize.push(item.parentElement);
+            })
+            arrButtonsSize.forEach((item) => {
+                item.addEventListener('click', (e) => {
+                    elHtml.classList.remove('text-small', 'text-medium', 'text-big');
+                    for (let i of arrLabelSize) {
+                        i.classList.remove('active');
+                    }
+                    item.parentElement.classList.add('active');
+                    elSizeText.textContent = item.dataset.info;
+                    elHtml.classList.add(item.dataset.class);
+                    closeModal(e.target.parentNode.parentNode.parentNode.parentNode.parentNode, e.target.parentNode.parentNode.parentNode.parentNode);
+                })
+            })
+
+            /*Нажатие на выбор цвета*/
+            let arrLabelColor = [];
+            arrButtonsColor.forEach((item) => {
+                arrLabelColor.push(item.parentElement);
+            })
+            arrButtonsColor.forEach((item) => {
+                item.addEventListener('click', (e) => {
+                    elHtml.classList.remove('dark-theme', 'sepia-theme', 'white-theme');
+                    for (let i of arrLabelColor) {
+                        i.classList.remove('active');
+                    }
+                    item.parentElement.classList.add('active');
+                    elHtml.classList.add(item.dataset.class);
+                    closeModal(e.target.parentNode.parentNode.parentNode.parentNode, e.target.parentNode.parentNode.parentNode);
+                })
+            })
+
+            /*Нажатие на выбор типа шрифта*/
+            let arrLabelFont = [];
+            arrButtonsFont.forEach((item) => {
+                arrLabelFont.push(item.parentElement);
+            })
+            arrButtonsFont.forEach((item) => {
+                item.addEventListener('click', (e) => {
+                    elHtml.classList.remove('family-sans-serif', 'family-serif');
+                    for (let i of arrLabelFont) {
+                        i.classList.remove('active');
+                    }
+                    item.parentElement.classList.add('active');
+                    elHtml.classList.add(item.dataset.class);
+                    closeModal(e.target.parentNode.parentNode.parentNode.parentNode, e.target.parentNode.parentNode.parentNode);
+                })
+            })
+
+            /*Нажатие на кнопку бургера*/
+            elBurger.addEventListener('click', () => {
+                if (!elBurger.classList.contains('active')) {
+                    //elBurger.classList.add('active');
+                    elSidebar.classList.add('active');
+                }
+                else {
+                    elBurger.classList.remove('active');
+                    elSidebar.classList.remove('active');
+                }
+            })
+
+            //Закрытие бургера в мобилке
+            elBurgerClose.addEventListener('click', () => {
+                elSidebar.classList.remove('active');
+            })
+
+            //Нажатие на кнопку ЕЩЕ
+            elButtonMore.addEventListener('click', () => {
+                elButtonMore.classList.toggle('active');
+                elPopupMore.classList.toggle('active');
+            })
+
+            //Переключение кнопок в переключателе
+            for(let item of elSwitcher.querySelectorAll('div')) {
+                item.addEventListener('click', function () {
+                    item.classList.add('active');
+                    elGlossary.textContent = '';
+                    if(this.classList.contains('js-add')) {
+                        elBase.dataset.type = 'add';
+                        elEdit.classList.remove('active');
+
+                    }
+                    if(this.classList.contains('js-edit')) {
+                        elBase.dataset.type = 'edit';
+                        elAdd.classList.remove('active');
+                    }
+                    type = elBase.dataset.type;
+                    createGlossary(currentIndex, currentIndexGlossary, type);
+                });
+            }
+
+            // Создание блоков на главной
+            function createSubjects() {
+                elBlocks.textContent = '';
+                infoData.forEach((item, index) => {
+                    let itemBlock;
+                    itemBlock = document.createElement('div');
+                    itemBlock.classList.add('blocks__item');
+                    itemBlock.classList.add('js-subject');
+                    itemBlock.addEventListener('click', createStartView);
+                    itemBlock.innerHTML = `<div class="blocks__item-img">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="38" viewBox="0 0 30 38" fill="none"><path xmlns="http://www.w3.org/2000/svg" d="M9 29H21M9 23H21M17.0008 1.00174C16.8097 1 16.5948 1 16.3494 1H7.40039C5.16018 1 4.03924 1 3.18359 1.43598C2.43095 1.81947 1.81947 2.43095 1.43597 3.18359C1 4.03924 1 5.16018 1 7.40039V30.6004C1 32.8406 1 33.9601 1.43598 34.8158C1.81947 35.5684 2.43095 36.181 3.18359 36.5645C4.03841 37 5.15801 37 7.39388 37L22.6062 37C24.842 37 25.96 37 26.8148 36.5645C27.5674 36.181 28.181 35.5684 28.5645 34.8158C29 33.961 29 32.843 29 30.6072V13.6514C29 13.406 28.9998 13.1911 28.998 13M17.0008 1.00174C17.5717 1.00695 17.9314 1.02813 18.2764 1.11094C18.6845 1.20893 19.0757 1.37053 19.4336 1.58984C19.8371 1.83713 20.1836 2.18363 20.875 2.875L27.126 9.12597C27.8178 9.81777 28.1617 10.1627 28.4091 10.5664C28.6284 10.9243 28.7907 11.3145 28.8887 11.7227C28.9715 12.0676 28.9928 12.4291 28.998 13M17.0008 1.00174L17 6.60042C17 8.84063 17 9.9603 17.436 10.8159C17.8195 11.5686 18.4309 12.181 19.1836 12.5645C20.0384 13 21.158 13 23.3938 13H28.998" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                     </div>
                                     <div class="blocks__item-title">${item.theme}</div>
                                    <div class="blocks__item-text js-text"></div>`;
-            elBlocks.append(itemBlock);
-            let arrText = getArray('.js-text');
-            data[index].subThemes.forEach((itemText) => {
-                let elSpan = document.createElement('SPAN');
-                elSpan.textContent = String(itemText);
-                arrText[index].append(elSpan);
-            });
-        })
-    }
-    createSubjects();
-
-    // Функция создания правого меню
-    function createMenu() {
-        let elMenuItem;
-        if(getArray('.js-menu-item').length) {
-            getArray('.js-menu-item').forEach((item) => {
-                item.remove();
-            })
-        }
-        data.forEach((item, index) => {
-            elMenuItem = document.createElement('DIV');
-            elMenuItem.classList.add('menu__item');
-            elMenuItem.classList.add('js-menu-item');
-            elMenuItem.innerHTML = `<div class="menu__item-title">${item.theme}</div>
-                               <div class="menu__item-list js-list"></div>`;
-            elMenu.querySelector('.js-modal-wrapper-menu').append(elMenuItem);
-            arrLists = getArray('.js-list');
-            item.subThemes.forEach((itemList) => {
-                let elList = document.createElement('SPAN'),
-                    elB = document.createElement('B');
-                elB.textContent = String(itemList);
-                elList.append(elB);
-                elList.addEventListener('click', function () {
-                    let arrMenuList = getArray('.js-list > span');
-                    arrMenuList.forEach((item) => {
-                        item.classList.remove('active');
-                    })
-                    data.forEach((item, index) => {
-                        if(this.parentElement.previousElementSibling.textContent === item.theme) {
-                            currentIndex = index;
-                        }
-                    })
-                    data[currentIndex].glossary.forEach((item,index) => {
-                        if(item.title === this.textContent) {
-                            currentIndexGlossary = index;
-                        }
+                    elBlocks.append(itemBlock);
+                    let arrText = getArray('.js-text');
+                    data[index].subThemes.forEach((itemText) => {
+                        let elSpan = document.createElement('SPAN');
+                        elSpan.textContent = String(itemText);
+                        arrText[index].append(elSpan);
                     });
-                    if(window.innerWidth < 1024) {
-                        closeModal(arrayModals[arrayModals.length - 1], arrModalsWrapper[arrModalsWrapper.length - 1]);
-                    }
-                    this.classList.add("active");
-                    elName.textContent = data[currentIndex].glossary[currentIndexGlossary].title;
-                    elSubName.textContent = data[currentIndex].glossary[currentIndexGlossary].text;
-                    createGlossary(currentIndex, currentIndexGlossary, type);
-                });
-                arrLists[index].append(elList);
-            })
-        })
-    }
+                })
+            }
+            createSubjects();
 
-    // Функция создания глоссария
-    function createGlossary(indexTheme, indexGlossary, typeAction) {
-        elGlossary.textContent = '';
-        data[indexTheme].glossary[indexGlossary].action[typeAction].forEach((item, index) => {
-            let elItem = document.createElement('div');
-            elItem.classList.add('glossary__item');
-            elItem.innerHTML =`<div class="glossary__item-title">${item.title}</div>
+            // Функция создания правого меню
+            function createMenu() {
+                let elMenuItem;
+                if(getArray('.js-menu-item').length) {
+                    getArray('.js-menu-item').forEach((item) => {
+                        item.remove();
+                    })
+                }
+                infoData.forEach((item, index) => {
+                    elMenuItem = document.createElement('DIV');
+                    elMenuItem.classList.add('menu__item');
+                    elMenuItem.classList.add('js-menu-item');
+                    elMenuItem.innerHTML = `<div class="menu__item-title">${item.theme}</div>
+                               <div class="menu__item-list js-list"></div>`;
+                    elMenu.querySelector('.js-modal-wrapper-menu').append(elMenuItem);
+                    arrLists = getArray('.js-list');
+                    item.subThemes.forEach((itemList) => {
+                        let elList = document.createElement('SPAN'),
+                            elB = document.createElement('B');
+                        elB.textContent = String(itemList);
+                        elList.append(elB);
+                        elList.addEventListener('click', function () {
+                            let arrMenuList = getArray('.js-list > span');
+                            arrMenuList.forEach((item) => {
+                                item.classList.remove('active');
+                            })
+                            infoData.forEach((item, index) => {
+                                if(this.parentElement.previousElementSibling.textContent === item.theme) {
+                                    currentIndex = index;
+                                }
+                            })
+                            data[currentIndex].glossary.forEach((item,index) => {
+                                if(item.title === this.textContent) {
+                                    currentIndexGlossary = index;
+                                }
+                            });
+                            if(window.innerWidth < 1024) {
+                                closeModal(arrayModals[arrayModals.length - 1], arrModalsWrapper[arrModalsWrapper.length - 1]);
+                            }
+                            this.classList.add("active");
+                            elName.textContent = data[currentIndex].glossary[currentIndexGlossary].title;
+                            elSubName.textContent = data[currentIndex].glossary[currentIndexGlossary].text;
+                            createGlossary(currentIndex, currentIndexGlossary, type);
+                        });
+                        arrLists[index].append(elList);
+                    })
+                })
+            }
+
+            // Функция создания глоссария
+            function createGlossary(indexTheme, indexGlossary, typeAction) {
+                elGlossary.textContent = '';
+                data[indexTheme].glossary[indexGlossary].action[typeAction].forEach((item, index) => {
+                    let elItem = document.createElement('div');
+                    elItem.classList.add('glossary__item');
+                    elItem.innerHTML =`<div class="glossary__item-title">${item.title}</div>
                                <div class="glossary__list js-glossary-list"></div>`;
-            elGlossary.append(elItem);
-            let arrLinks = getArray('.js-glossary-list');
-            item.content.forEach((itemLink) => {
-                let elLink = document.createElement('A');
-                let elB = document.createElement('B');
-                elLink.setAttribute('href', `https://ru.ruwiki.ru/wiki/${itemLink.url}`);
-                elB.textContent = itemLink.title;
-                elLink.append(elB);
-                arrLinks[index].append(elLink);
-            });
-        })
-    }
-
-    // Функция создания стартового вида второго экрана
-    function createStartView() {
-        // Получаем индекс блока куда нажали
-        arrayBlocks = getArray('.js-subject');
-        for(let i = 0; i < arrayBlocks.length; i++) {
-            if(arrayBlocks[i] === this) {
-                currentIndex = i;
+                    elGlossary.append(elItem);
+                    let arrLinks = getArray('.js-glossary-list');
+                    item.content.forEach((itemLink) => {
+                        let elLink = document.createElement('A');
+                        let elB = document.createElement('B');
+                        elLink.setAttribute('href', `https://ru.ruwiki.ru/wiki/${itemLink.url}`);
+                        elB.textContent = itemLink.title;
+                        elLink.append(elB);
+                        arrLinks[index].append(elLink);
+                    });
+                })
             }
-        }
-        //---
-        // Убрали первое состояние и показали второе
-        elState1.classList.remove('active');
-        elState2.classList.add('active');
-        //---
-        type = elBase.dataset.type;
-        // При выборы любой темы по умолчанию показывам первую подтему со всеми данными
-        createGlossary(currentIndex, currentIndexGlossary, type);
-        //---
-        elName.textContent = data[currentIndex].glossary[0].title;
-        elSubName.textContent = data[currentIndex].glossary[0].text;
-        //getElement('.glossary').style.width = `${elState2.offsetWidth - elMenu.offsetWidth - 32 - 15}px`;
-        createMenu();
-        //Выделение первого элемента из блока
-        getArray('.js-list span').forEach((item) => {
-            item.classList.remove('active');
-        })
-        let currentBlockMenu = getArray('.js-list')[currentIndex];
-        currentBlockMenu.querySelectorAll('span')[0].classList.add('active');
-        //----
-        //Включена только первая кнопка в переключателе
-        elAdd.classList.add('active');
-        elEdit.classList.remove('active');
-    }
 
-    // Показать поиск в мобиле
-    elButtonCallSearch.addEventListener('click', () => {
-        elForSearch.classList.add('active');
-    })
-    //-----
-
-    //Скрыть поле поиска
-    elForSearch.addEventListener('click', (e) => {
-        if(e.target === elForSearch) {
-            elForSearch.classList.remove('active');
-        }
-    })
-    //-----
-
-    //Ввод данных в поле ввода
-    let arrayValTitle = [],// массив значений названий статей
-        arrayVatUrl = [], // массив занчений url-адресов статей
-        matched; // Совпавшая подстрока
-    elInput.addEventListener('input', () => {
-        elSearch.classList.add('active');
-        elLayerSearch.classList.add('active');
-        noScrollBody();
-        arrayValTitle = []; // обнуляем массив
-        arrayVatUrl = [];
-        // Если есть сопадения, то счетчик совпадний увеличиваем
-        for(let i of arrayTitle) {
-            if(i.toLowerCase().indexOf(elInput.value.toLowerCase()) === 0) {
-                matched = i.substr(0, elInput.value.length).toLowerCase();
-                break;
+            // Функция создания стартового вида второго экрана
+            function createStartView() {
+                // Получаем индекс блока куда нажали
+                arrayBlocks = getArray('.js-subject');
+                for(let i = 0; i < arrayBlocks.length; i++) {
+                    if(arrayBlocks[i] === this) {
+                        currentIndex = i;
+                    }
+                }
+                //---
+                // Убрали первое состояние и показали второе
+                elState1.classList.remove('active');
+                elState2.classList.add('active');
+                //---
+                type = elBase.dataset.type;
+                // При выборы любой темы по умолчанию показывам первую подтему со всеми данными
+                createGlossary(currentIndex, currentIndexGlossary, type);
+                //---
+                elName.textContent = data[currentIndex].glossary[0].title;
+                elSubName.textContent = data[currentIndex].glossary[0].text;
+                //getElement('.glossary').style.width = `${elState2.offsetWidth - elMenu.offsetWidth - 32 - 15}px`;
+                createMenu();
+                //Выделение первого элемента из блока
+                getArray('.js-list span').forEach((item) => {
+                    item.classList.remove('active');
+                })
+                let currentBlockMenu = getArray('.js-list')[currentIndex];
+                currentBlockMenu.querySelectorAll('span')[0].classList.add('active');
+                //----
+                //Включена только первая кнопка в переключателе
+                elAdd.classList.add('active');
+                elEdit.classList.remove('active');
             }
-        }
-        //----
-        //Собираем массив из совпадений по введенным значениям
-        arrayTitle.forEach((item, index) => {
-            if(item.toLowerCase().indexOf(matched) === 0) {
-                arrayValTitle.push(item);
-                arrayVatUrl.push(arrayUrl[index]);
-            }
-            if (!elInput.value) {
+
+            // Показать поиск в мобиле
+            elButtonCallSearch.addEventListener('click', () => {
+                elForSearch.classList.add('active');
+            })
+            //-----
+
+            //Скрыть поле поиска
+            elForSearch.addEventListener('click', (e) => {
+                if(e.target === elForSearch) {
+                    elForSearch.classList.remove('active');
+                }
+            })
+            //-----
+
+            //Ввод данных в поле ввода
+            let arrayValTitle = [],// массив значений названий статей
+                arrayVatUrl = [], // массив занчений url-адресов статей
+                matched; // Совпавшая подстрока
+            elInput.addEventListener('input', () => {
+                elSearch.classList.add('active');
+                elLayerSearch.classList.add('active');
+                noScrollBody();
+                arrayValTitle = []; // обнуляем массив
+                arrayVatUrl = [];
+                // Если есть сопадения, то счетчик совпадний увеличиваем
+                for(let i of arrayTitle) {
+                    if(i.toLowerCase().indexOf(elInput.value.toLowerCase()) === 0) {
+                        matched = i.substr(0, elInput.value.length).toLowerCase();
+                        break;
+                    }
+                }
+                //----
+                //Собираем массив из совпадений по введенным значениям
+                arrayTitle.forEach((item, index) => {
+                    if(item.toLowerCase().indexOf(matched) === 0) {
+                        arrayValTitle.push(item);
+                        arrayVatUrl.push(arrayUrl[index]);
+                    }
+                    if (!elInput.value) {
+                        arrayValTitle = [];
+                        arrayVatUrl = []
+                    }
+                })
+                //------
+                //Отрисовываем выдачу поиска
+                elResultSearchWrapper.textContent = '';
+                if(window.innerWidth < 1024) {
+                    elResultSearch.style.maxHeight = `${window.innerHeight - 100}px`;// 100 - высота строки поиска
+                }
+                if(arrayValTitle.length) {
+                    elResultSearch.classList.add('active');
+                    elResultSearchContent.classList.add('active');
+                    arrayValTitle.forEach((item, index) => {
+                        let elLink = document.createElement("A");
+                        elLink.classList.add('header-search-result__item');
+                        elLink.textContent = item;
+                        elLink.setAttribute('href', arrayVatUrl[index]);
+                        elResultSearchWrapper.append(elLink);
+                    })
+                }
+                else {
+                    elResultSearch.classList.remove('active');
+                    elResultSearchContent.classList.remove('active');
+                }
+                //------
+            })
+
+            elClearSearch.addEventListener('click', clearSearch);
+            elLayerSearch.addEventListener('click', clearSearch);
+            function clearSearch () {
+                yesScrollBody();
+                elLayerSearch.classList.remove('active');
+                elForSearch.classList.remove('active');
+                elInput.value = '';
                 arrayValTitle = [];
-                arrayVatUrl = []
+                arrayVatUrl = [];
+                elLayerSearch.classList.remove('active');
+                elSearch.classList.remove('active');
+                elResultSearch.classList.remove('active');
+                elResultSearchWrapper.textContent ='';
+                elResultSearchContent.classList.remove('active');
+                elResultSearch.style ='';
+
+                /*arrResultSearch[indexButtonSearch].classList.remove('active');
+                arrClearSearch[indexButtonSearch].classList.remove('active');
+                if(arrResultItems.length) {
+                    for(let item of arrResultItems) {
+                        item.href = '';
+                        item.textContent = '';
+                    }
+                }*/
             }
-        })
-        //------
-        //Отрисовываем выдачу поиска
-        elResultSearchWrapper.textContent = '';
-        if(window.innerWidth < 1024) {
-            elResultSearch.style.maxHeight = `${window.innerHeight - 100}px`;// 100 - высота строки поиска
-        }
-        if(arrayValTitle.length) {
-            elResultSearch.classList.add('active');
-            elResultSearchContent.classList.add('active');
-            arrayValTitle.forEach((item, index) => {
-                let elLink = document.createElement("A");
-                elLink.classList.add('header-search-result__item');
-                elLink.textContent = item;
-                elLink.setAttribute('href', arrayVatUrl[index]);
-                elResultSearchWrapper.append(elLink);
+
+            //Переход в блок с темами
+            elButtonToState1.addEventListener('click', () => {
+                elState1.classList.add('active');
+                elState2.classList.remove('active');
+                closeModal(arrayModals[arrayModals.length - 1], arrModalsWrapper[arrModalsWrapper.length - 1]);
             })
         }
-        else {
-            elResultSearch.classList.remove('active');
-            elResultSearchContent.classList.remove('active');
-        }
-        //------
     })
-
-    elClearSearch.addEventListener('click', clearSearch);
-    elLayerSearch.addEventListener('click', clearSearch);
-    function clearSearch () {
-        yesScrollBody();
-        elLayerSearch.classList.remove('active');
-        elForSearch.classList.remove('active');
-        elInput.value = '';
-        arrayValTitle = [];
-        arrayVatUrl = [];
-        elLayerSearch.classList.remove('active');
-        elSearch.classList.remove('active');
-        elResultSearch.classList.remove('active');
-        elResultSearchWrapper.textContent ='';
-        elResultSearchContent.classList.remove('active');
-        elResultSearch.style ='';
-
-        /*arrResultSearch[indexButtonSearch].classList.remove('active');
-        arrClearSearch[indexButtonSearch].classList.remove('active');
-        if(arrResultItems.length) {
-            for(let item of arrResultItems) {
-                item.href = '';
-                item.textContent = '';
-            }
-        }*/
-    }
-
-    //Переход в блок с темами
-    elButtonToState1.addEventListener('click', () => {
-        elState1.classList.add('active');
-        elState2.classList.remove('active');
-        closeModal(arrayModals[arrayModals.length - 1], arrModalsWrapper[arrModalsWrapper.length - 1]);
-    })
-})
-
