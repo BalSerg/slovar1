@@ -2088,6 +2088,16 @@ fetch('https://portals.ruwiki.ru/slovnik/data.json')
             })
             //--------
 
+            //Открытие модалок
+            arrayButtonsCallModal.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    if(String(item.classList).indexOf('more')) {
+                        item.classList.toggle('active');
+                    }
+                    openModal(arrayModals[index], arrModalsWrapper[index])
+                })
+            })
+
             //Закрытие модалок по крестику
             arrayModalsCross.forEach((item, index) => {
                 item.addEventListener('click', () => {
